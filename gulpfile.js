@@ -30,11 +30,13 @@ gulp.task('styles', ['clear-styles'], function() {
 	log('Compiling and creating Stylesheets');
 	return gulp
 		.src(config.styles)
-		.pipe($.plumber())
+		.pipe($.plumber())//error handling
 		//.on('error', errorMessage)
 		.pipe($.less())
-		.pipe($.autoprefixer({browsers: ['last 5 version', '> 1%']})) //get the auto prefixer from website
-		//use browsers that are having >1% in market
+		.pipe($.autoprefixer({
+			browsers: ['last 5 version', '> 1%']
+		})) //get the auto prefixer from website
+		//use browsers that are having >1% in market - vendor prefixes
 		.pipe(gulp.dest(config.temp));
 });
 
