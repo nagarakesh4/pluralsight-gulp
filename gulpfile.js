@@ -38,13 +38,15 @@ gulp.task('styles', ['clear-styles'], function() {
 
 //now delete existing styles in the temp folder
 //instead of running this task in separate add this as dependency to 'styles' task to execute ahead
-gulp.task('clear-styles', function() {
+//add a callback 'done' so that task 'styles' will wait until 'clear-styles' is run, this task should not be a stream but a callback - didnt work had to remove
+gulp.task('clear-styles', function(ok) {
 	log('Clearing styles');
-	var files = config.temp + '**/*.css';
-	cleanFiles(files);
+	var files = config.temp + '**/*.css'; //delete all css files
+	cleanFiles(files, ok);
 });
 
-function cleanFiles(path){
+//pass the callback
+function cleanFiles(path, ok){
 	log('Cleaning file ' + $.util.colors.red(path));
-	del(path);
+	del(path, ok); //del function already has arguments for callback
 }
