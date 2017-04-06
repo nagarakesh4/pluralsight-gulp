@@ -30,7 +30,8 @@ gulp.task('styles', ['clear-styles'], function() {
 	log('Compiling and creating Stylesheets');
 	return gulp
 		.src(config.styles)
-		.on('error', errorMessage)
+		.pipe($.plumber())
+		//.on('error', errorMessage)
 		.pipe($.less())
 		.pipe($.autoprefixer({browsers: ['last 5 version', '> 1%']})) //get the auto prefixer from website
 		//use browsers that are having >1% in market
@@ -58,9 +59,9 @@ function cleanFiles(path){
 	del(path); //del function already has arguments for callback
 }
 
-function errorMessage(msg){
-	log("start of error message");
-	log(msg);
-	log("end of error message");
-	this.emit('error');
-}
+//function errorMessage(msg){
+//	log("start of error message");
+//	log(msg);
+//	log("end of error message");
+//	this.emit('error');
+//}
