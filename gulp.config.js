@@ -2,7 +2,7 @@ module.exports = function() {
 	var clientBase = './src/client/';
 	
 	var config = {
-		temp: './.temp',
+		temp: './.temp/',
 		
 		/**
 		* File paths

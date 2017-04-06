@@ -39,14 +39,20 @@ gulp.task('styles', ['clear-styles'], function() {
 //now delete existing styles in the temp folder
 //instead of running this task in separate add this as dependency to 'styles' task to execute ahead
 //add a callback 'done' so that task 'styles' will wait until 'clear-styles' is run, this task should not be a stream but a callback - didnt work had to remove
-gulp.task('clear-styles', function(ok) {
+gulp.task('clear-styles', function() {
 	log('Clearing styles');
 	var files = config.temp + '**/*.css'; //delete all css files
-	cleanFiles(files, ok);
+	cleanFiles(files);
+});
+
+//create a watch task for changes in styles are reflected immediately in the temp
+gulp.task('styles-watcher', function(){
+	//watch API
+	gulp.watch([config.styles], ['styles']);//all the files to watch for changes, all the tasks to kickoff for any change
 });
 
 //pass the callback
-function cleanFiles(path, ok){
+function cleanFiles(path){
 	log('Cleaning file ' + $.util.colors.red(path));
-	del(path, ok); //del function already has arguments for callback
+	del(path); //del function already has arguments for callback
 }
